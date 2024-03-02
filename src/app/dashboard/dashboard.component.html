@@ -1,0 +1,164 @@
+<h1>Dashboard</h1>
+<div class="card">
+  <div class="card-head">Lorem ipsum - dashboard</div>
+  <div class="card-body">
+    Lorem ipsum dolor, sit amet consectetur adipisicing elit. Quas ducimus
+    soluta, quasi aut ipsa non, ullam enim rem repudiandae, vitae provident
+    animi. Inventore rerum, voluptas optio dignissimos blanditiis modi illo!
+  </div>
+</div>
+
+<ul class="box-info">
+  <li>
+    <i class="fal fa-info"></i>
+    <span class="text">
+      <h3>Information</h3>
+      <p>Total: {{ totalInformacion}}</p>
+    </span>
+  </li>
+  <li>
+    <i class="fal fa-exclamation"></i>
+    <span class="text">
+      <h3>Warning</h3>
+      <p>Total: {{ totalAdvertencia}}</p>
+    </span>
+  </li>
+  <li>
+    <i class="fal fa-times close-icon"></i>
+    <span class="text">
+      <h3>Error</h3>
+      <p>Total: {{ totalError}}</p>
+    </span>
+  </li>
+  <li>
+    <i class="fal fa-skull-crossbones"></i>
+    <span class="text">
+      <h3>Critical</h3>
+      <p>Total: {{totalCritico}}</p>
+    </span>
+  </li>
+</ul>
+
+<input
+  type="text"
+  placeholder="Filter"
+  class="input-filter"
+  name="fname"
+  (keyup.enter)="applyFilter($event)"
+/>
+<!--
+<mat-form-field class="custom-mat-form-field" appearance="fill" >
+  <mat-label class="form-label">Filter</mat-label>
+  <input
+    class="form-input"
+    matInput
+    (keyup.enter)="applyFilter($event)"
+    placeholder="Ex. Maria"
+    #input
+    autocomplete="off"/>
+</mat-form-field>
+-->
+<div class="mat-elevation-z2">
+  <div class="responsive-table">
+    <table
+      mat-table
+      [dataSource]="dataSource"
+      matSort
+      (matSortChange)="announceSortChange($event)"
+    >
+      <!-- Position Column -->
+      <ng-container matColumnDef="severety">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by severety"
+        >
+          Severety
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <p [class]="getSeverityClass(element.severety)">
+            {{ getSeverityInfo(element.severety) }}
+          </p>
+        </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container class="container" matColumnDef="name">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by name"
+        >
+          Name
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container matColumnDef="stackTrace">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by stackTrace"
+        >
+          Origin
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.stackTrace }}</td>
+      </ng-container>
+
+      <!-- Symbol Column -->
+      <ng-container matColumnDef="applicationCode">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by applicationCode"
+        >
+          System
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.applicationCode }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="creationDate">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by creationDate"
+        >
+          Date
+        </th>
+        <td mat-cell *matCellDef="let element">
+          {{ element.creationDate | date : "dd/MMMM/yyyy hh:mm a" }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th
+          mat-header-cell
+          *matHeaderCellDef
+          mat-sort-header
+          sortActionDescription="Sort by status"
+        >
+          Status
+        </th>
+        <td mat-cell *matCellDef="let element">{{ element.status }}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+    </table>
+  </div>
+  <mat-paginator
+      class="paginator"
+      [pageSizeOptions]="[5, 10, 20]"
+      showFirstLastButtons
+      aria-label="Select page of alerts elements"
+    >
+    </mat-paginator>
+</div>
