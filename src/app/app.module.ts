@@ -36,7 +36,7 @@ import { LoginComponent } from './login/login.component';
     PagesComponent,
     MediaComponent,
     SettingsComponent,
-    LoginComponent
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,21 +1,31 @@
+import { PaginatorIntl } from './../Services/PaginatorIntl.service';
 import { AfterViewInit, ViewChild, Component, OnInit } from '@angular/core';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, MatPaginatorIntl, PageEvent } from '@angular/material/paginator';
 import {MatTableDataSource} from '@angular/material/table';
 import {MatSort, Sort} from '@angular/material/sort';
 
 import { AlertService } from 'src/app/Services/alert.service';
 import { Alert } from 'src/app/interfaces/Alert';
 
-
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  styleUrls: ['./dashboard.component.scss'],
+  providers: [{ provide: MatPaginatorIntl, useClass: PaginatorIntl }],
 })
 
 export class DashboardComponent implements OnInit,AfterViewInit {
   AlertsData: Alert[] = [];
+
+  pageIndex = 0;
+  pageSize = 5;
+  totalItems = 0;
+
+  filter: boolean = false;
+  filterfirst: boolean = false;
+  filterValue: string = '';
+  filterEvent: any;
 
   totalInformacion: number = 0;
   totalAdvertencia: number = 0;
@@ -23,51 +33,74 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   totalCritico: number = 0;
 
   displayedColumns: string[] = ['severety', 'name', 'stackTrace', 'applicationCode','creationDate', 'status'];
+
   dataSource = new MatTableDataSource<Alert>();
 
-  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
+
   constructor(private _liveAnnouncer: LiveAnnouncer, private _alertService: AlertService) {}
 
   ngOnInit(): void {
-      this.getAllAlerts();
+    this.loadPage();
   }
 
   ngAfterViewInit() {
-    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
-  /** Announce the change in sort state for assistive technology. */
   announceSortChange(sortState: Sort) {
-    // This example uses English messages. If your application supports
-    // multiple language, you would internationalize these strings.
-    // Furthermore, you can customize the message to add additional
-    // details about the values being sorted.
     if (sortState.direction) {
       this._liveAnnouncer.announce(`Sorted ${sortState.direction}ending`);
     } else {
       this._liveAnnouncer.announce('Sorting cleared');
     }
   }
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    if (this.dataSource.paginator) {
-      this.dataSource.paginator.firstPage();
+  applyFilter(event: Event) {
+    this.filterValue = (event.target as HTMLInputElement).value;
+    this.filterEvent = event;
+      if(this.filterValue != ''){
+        this.filter = true
+      }else{
+        this.filter = false
+      }
+      if(this.pageIndex > 0 && !this.filterfirst) this.pageIndex = 0
+      this.loadPage()
+      this.dataSource.filter = this.filterValue.trim().toLowerCase();
+  }
+  
+  onPageChange(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    if(this.filter){
+      this.applyFilter(this.filterEvent);
+    }else{
+      this.loadPage();
+    }
+    
+  }
+
+  loadPage(){
+    if(this.filter && this.filterValue != ''){
+      this._alertService.getAllAlertPaginatorWithFilter(this.pageIndex + 1,this.pageSize, this.     filterValue).subscribe(data => {
+        this.AlertsData = data.items;
+        this.dataSource.data = this.AlertsData;
+        this.totalItems = data.totalItems;
+        this.filterfirst = true;
+      })
+      this.filterValue = '';
+    }else{
+      if(this.pageIndex > 0 && this.filterfirst) this.pageIndex = 0
+      this._alertService.getAllAlertPaginator(this.pageIndex + 1,this.pageSize).subscribe(data => {
+        this.AlertsData = data.items;
+        this.dataSource.data = this.AlertsData;
+        this.totalItems = data.totalItems;
+        this.filterfirst = false
+        this.clasificarAlertas();
+      })
+      
     }
   }
-
-  getAllAlerts(){
-    this._alertService.getAllAlert().subscribe(data => {
-      this.AlertsData = data;
-      this.dataSource.data = this.AlertsData;
-      this.clasificarAlertas();
-      console.log(data)
-    })
-  }
-
 
   getSeverityClass(severityLevel: number): string {
     switch (severityLevel) {
@@ -101,7 +134,7 @@ export class DashboardComponent implements OnInit,AfterViewInit {
   }
 
   clasificarAlertas() {
-    this.totalInformacion = this.AlertsData.filter(alerta => alerta.severety == 0).length;
+    this.totalInformacion = this.AlertsData.filter(alerta => alerta.severety== 0).length;
     this.totalAdvertencia = this.AlertsData.filter(alerta => alerta.severety == 1).length;
     this.totalError = this.AlertsData.filter(alerta => alerta.severety == 2).length;
     this.totalCritico = this.AlertsData.filter(alerta => alerta.severety == 3).length;

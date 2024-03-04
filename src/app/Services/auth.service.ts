@@ -34,6 +34,7 @@ export class AuthService {
   isAuthenticated(): boolean {
     const token = this.getToken();
     // Verifica si el token existe y no está caducado
+    
     return token !== null && !this.isTokenExpired(token);
   }
 
