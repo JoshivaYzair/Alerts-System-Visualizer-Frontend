@@ -1,0 +1,131 @@
+  .mat-elevation-z2{
+    background-color: white;
+  }
+  
+  .INFO{
+    background-color: rgb(85, 131, 0);
+    text-align: center;
+    padding: .4rem 0;
+    border-radius: 2rem;
+    color: white;
+  }
+  .WARNING{
+    background-color: rgb(161, 164, 0);
+    text-align: center;
+    padding: .4rem 0;
+    border-radius: 2rem;
+    color: white;
+  }
+  .ERROR{
+    background-color: rgb(144, 0, 0);
+    text-align: center;
+    padding: .4rem 0;
+    border-radius: 2rem;
+    color: white;
+  }
+  .CRITICAL{
+    background-color: rgb(0, 0, 0);
+    text-align: center;
+    padding: .4rem 0;
+    border-radius: 2rem;
+    color: white;
+  }
+  
+  .responsive-table {
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+
+  .responsive-table::-webkit-scrollbar {
+    width: 0;  /* Ajusta el ancho del scroll a cero */
+  }
+
+  .box-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    grid-gap: 24px;
+    margin-top: 36px;
+    margin-bottom: 20px;
+      li {
+        padding: 24px;
+        background-color: white;
+        display: flex;
+        align-items: center;
+        grid-gap: 24px;
+        cursor: pointer;
+        .fal{
+          width: 80px;
+          height: 80px;
+          border-radius: 10px;
+          font-size: 36px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          color: white;
+        }
+
+        h3 {
+          font-size: 24px;
+          font-weight: 600;
+          color: var(--dark);
+        }
+        p {
+          color: var(--dark);  
+        }
+      }
+      li:nth-child(1) .fal {
+        background: rgb(85, 131, 0);
+      }
+      li:nth-child(2) .fal {
+        background: rgb(161, 164, 0);
+      }
+      li:nth-child(3) .fal {
+        background: rgb(144, 0, 0);
+      }
+
+      li:nth-child(4) .fal {
+        background: rgb(0, 0, 0);
+      }
+       
+  }
+
+  .box-info li:nth-child(1) .bx {
+    background: var(--light-blue);
+    color: var(--blue);
+  }
+
+  .top-table{
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  mat-hint{
+    opacity: 50%;
+  }
+
+  .mat-icon-button {
+    /* Oculta el texto del botón */
+    color: transparent;
+  }
+
+  .mat-icon-button .mat-button-wrapper {
+    /* Ajusta el tamaño del icono según sea necesario */
+    font-size: 24px;
+  }
+
+  .transparent-button {
+    background-color: transparent !important;
+    border: none !important;
+  }
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+  .center-header {
+    text-align: center;
+  }
+  mat-menu {
+    min-width: auto !important;
+    max-width: fit-content !important;
+  }

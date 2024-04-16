@@ -1,6 +1,6 @@
 import { Alert } from "./Alert";
 
 export interface itemsResponse {
-    items: Alert[];
+    items: any[];
     totalItems: number;
 }

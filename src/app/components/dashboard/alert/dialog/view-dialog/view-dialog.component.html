@@ -1,0 +1,30 @@
+<div class="view-popup">
+    <!--
+    <div class="header-container">
+        <h2>{{ data.entityLabel }} Details</h2>
+        <button mat-icon-button class="close-icon" (click)="closeDialog()"><mat-icon>close</mat-icon></button>
+    </div>
+    <ng-container *ngFor="let field of entityFields">
+        <p><strong>{{ field[0] }}</strong></p>
+        <input class="input-details" type="text" [value]="field[1]" disabled>
+    </ng-container>
+    -->
+
+    <div class="header-container">
+        <h3>{{ data.entityLabel }} Details</h3>
+        <button mat-icon-button class="close-icon" (click)="closeDialog()"><mat-icon>close</mat-icon></button>
+    </div>
+    <div class="body-container">
+        <p><strong>Name</strong></p>
+        <input class="input-details" type="text" [value]="data.entity.name" disabled>
+
+        <p><strong>Description</strong></p>
+        <textarea class="input-details" [value]="data.entity.description" disabled></textarea>
+
+        <div class="body-tag">
+            <p class="tag">{{ getSeverityClass(data.entity.severety) }}</p>
+            <p class="tag">{{ getStatusClass(data.entity.status) }}</p>
+            <p class="tag"> <strong> Date: {{data.entity.creationDate | date : "dd/MMMM/yyyy hh:mm a"}}</strong></p>
+        </div>
+    </div>
+</div>

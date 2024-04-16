@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { LoginEventService } from './Services/LoginEventService';
+import { AuthService } from './Services/auth.service';
 interface SideNavToggle {
   screenWidth: number;
   collapsed: boolean;
@@ -18,11 +19,10 @@ export class AppComponent {
   isSideNavCollapsed = false;
   screenWidth = 0;
 
-  constructor(private loginEventService: LoginEventService) {
-    // Verifica si hay un token en el localStorage al inicializar el componente
-    this.isLoggedIn = !!localStorage.getItem('token');
+  constructor(private loginEventService: LoginEventService, private _authService: AuthService) {
+    if (this._authService.isAuthenticated() != false) this.isLoggedIn = true
     this.loginEventService.loginSuccessEvent.subscribe(() => {
-      this.isLoggedIn = !this.isLoggedIn;
+      this.isLoggedIn = this._authService.isAuthenticated();
     });
   }
 

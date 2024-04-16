@@ -1,0 +1,48 @@
+.mat-elevation-z2{
+    background-color: white;
+  }
+  
+  .responsive-table {
+    width: 100%;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+
+  .responsive-table::-webkit-scrollbar {
+    width: 0; 
+  }
+
+  .top-table{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 36px;
+  }
+  
+  mat-hint{
+    opacity: 50%;
+  }
+
+  .mat-icon-button {
+    color: transparent;
+  }
+
+  .mat-icon-button .mat-button-wrapper {
+    font-size: 24px;
+  }
+
+  .transparent-button {
+    background-color: transparent !important;
+    border: none !important;
+  }
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
+  .center-header {
+    text-align: center;
+  }
+  mat-menu {
+    min-width: auto !important;
+    max-width: fit-content !important;
+  }

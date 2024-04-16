@@ -1,0 +1,23 @@
+<div class="view-popup">
+    <div class="header-container">
+        <h3>{{ data.entityLabel }} Details</h3>
+        <button mat-icon-button class="close-icon" (click)="closeDialog()"><mat-icon>close</mat-icon></button>
+    </div>
+    <div class="body-container">
+        <p><strong>Name</strong></p>
+        <input class="input-details" type="text" [value]="data.entity.name" disabled>
+
+        <p><strong>Code</strong></p>
+        <input class="input-details" type="text" [value]="data.entity.code" disabled>
+
+        <p><strong>Description</strong></p>
+        <textarea class="input-details" [value]="data.entity.description" disabled></textarea>
+
+        <p><strong>Url</strong></p>
+        <textarea class="input-details" [value]="data.entity.url" disabled></textarea>
+
+        <div class="body-tag">
+            <p class="tag"> Email: {{ data.entity.supportEmail }}</p>
+        </div>
+    </div>
+</div>

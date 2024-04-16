@@ -1,0 +1,39 @@
+.container{
+    h4{
+        font-size: 15px !important;
+        margin: 20px 20px;
+    }
+    p{
+        font-size: 14px !important;
+        margin: 20px 20px;
+    }
+    .button-container{
+        button{
+            cursor: pointer;
+            border: none;
+            padding: 0%;
+            margin: 0%;
+            height: 45px;
+            width: 50%;
+            text-align: center;
+            font-size: 12px !important;
+        }
+
+        .accept-button:hover{
+            background: #ff0432;
+        }
+
+        .cancel-button:hover{
+            background: rgb(232, 232, 232);
+        }
+
+        .accept-button{
+            background: #fe3f61;
+            color: white;
+        }
+
+        .cancel-button{
+            background: white;
+        }
+    }
+}

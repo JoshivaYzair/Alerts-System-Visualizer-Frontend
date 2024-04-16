@@ -1,0 +1,27 @@
+<div class="view-popup">
+    <div class="header-container">
+        <h3>{{action}} {{ data.entityLabel }}</h3>
+        <button type="button" [mat-dialog-close]="false" mat-icon-button class="close-icon" (click)="closeDialog(false)"><mat-icon>close</mat-icon></button>
+    </div>
+    <form (ngSubmit)="formSubmit()">
+        <div class="body-container">
+            <p><strong>Name</strong></p>
+            <input class="input-details" type="text"[(ngModel)]="name" name="name">
+
+            <p><strong>Code</strong></p>
+            <input class="input-details" type="text" [(ngModel)]="code"  name="code">
+
+            <p><strong>Description</strong></p>
+            <textarea class="input-details" [(ngModel)]="description"  name="description"></textarea>
+
+            <p><strong>Url</strong></p>
+            <textarea class="input-details" [(ngModel)]="url" name="url"></textarea>
+
+            <p><strong>Support Email</strong></p>
+            <input class="input-details" [(ngModel)]="supportEmail"  name="supportEmail">
+        </div>
+        <div class="button-edit">
+            <button mat-flat-button type="submit"><mat-icon>{{icon}}</mat-icon>{{action}}</button>
+        </div>
+    </form>
+</div>
